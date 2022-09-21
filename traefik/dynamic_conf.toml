@@ -4,13 +4,7 @@
   service = "api@internal"
   middlewares = ["auth"]
 
-[http.routers.api-tls]
-  entryPoints = "websecure"
-  rule = "Host(`dashboard.devdoll.art`)"
-  service = "api@internal"
-  middlewares = ["auth"]
-
-  [http.routers.api-tls.tls]
+  [http.routers.api.tls]
     certResolver = "le"
 
 
