@@ -2,12 +2,20 @@
   rule = "Host(`traefik.devdoll.art`)"
   service = "api@internal"
   middlewares = ["auth"]
-
   [http.routers.api.tls]
+    certResolver = "le"
+
+[http.routers.bt]
+  rule = "Host(`bt.devdoll.art`)"
+  service = "bt"
+  [http.routers.bt.tls]
     certResolver = "le"
 
 
 [http.middlewares.auth.basicAuth]
-  users = [
-    "liangniang:$apr1$eeYKtNnF$plWflIpO95tdE1chPdiy51",
-  ]
+  users = ["liangniang:$apr1$eeYKtNnF$plWflIpO95tdE1chPdiy51"]
+
+[http.services]
+  [http.services.bt.loadBalancer]
+    [[http.services.bt.loadBalancer.servers]]
+      url = "http://127.0.0.1:8888/"
