@@ -1,5 +1,4 @@
 [http.routers.api]
-  entryPoints = "web"
   rule = "Host(`dashboard.devdoll.art`)"
   service = "api@internal"
   middlewares = ["auth"]
