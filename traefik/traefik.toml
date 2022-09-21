@@ -17,3 +17,12 @@
   [providers.file]
     filename = "/etc/traefik/dynamic_conf.toml"
     watch = true
+
+[certificatesResolvers.le.acme]
+  email = "liangniangbaby@gmail.com"
+  storage = "acme.json"
+
+  [certificatesResolvers.le.acme.tlsChallenge]
+
+  [certificatesResolvers.le.acme.httpChallenge]
+    entryPoint = "web"

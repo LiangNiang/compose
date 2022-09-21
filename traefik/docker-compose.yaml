@@ -8,4 +8,5 @@ services:
     volumes:
       - ./dynamic_conf.toml:/etc/traefik/dynamic_conf.toml
       - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./acme.json:/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
