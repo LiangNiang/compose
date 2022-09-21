@@ -1,0 +1,10 @@
+version: '3'
+services:
+  whoami:
+    image: containous/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.devdoll.art`)"
+networks:
+  default:
+    name: traefik_default
+    external: true
