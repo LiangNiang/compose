@@ -1,0 +1,17 @@
+version: "3"
+services:
+  registry:
+    image: registry
+    volumes:
+      - ./registry-data:/var/lib/registry
+  ui:
+    image: joxit/docker-registry-ui
+    ports:
+      - 9001:80
+    environment:
+      - SINGLE_REGISTRY=false
+      - REGISTRY_TITLE=亮的 Docker Hub
+      - NGINX_PROXY_PASS_URL=http://registry:5000
+      - DELETE_IMAGES=true
+    depends_on:
+      - registry
