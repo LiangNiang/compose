@@ -1,0 +1,22 @@
+[global]
+  checkNewVersion = true
+  sendAnonymousUsage = true
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+  [entryPoints.websecure]
+    address = ":443"
+  [entryPoints.streaming]
+    address = ":1704/udp"
+
+[api]
+  insecure = true
+  dashboard = true
+
+[providers]
+  [providers.docker]
+    exposedByDefault = false
+  [providers.file]
+    filename = "/etc/traefik/dynamic_conf.toml"
+    watch = true

@@ -1,0 +1,9 @@
+[http.routers.api]
+  rule = "Host(`dashboard.devdoll.art`)"
+  service = "api@internal"
+  middlewares = ["auth"]
+
+[http.middlewares.auth.basicAuth]
+  users = [
+    "liangniang:$apr1$eeYKtNnF$plWflIpO95tdE1chPdiy51",
+  ]

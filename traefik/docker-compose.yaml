@@ -2,9 +2,9 @@ version: '3'
 services:
   traefik:
     image: traefik
-    command: --api.insecure=true --providers.docker
     ports:
       - 80:80
-      - 8080:8080
     volumes:
+      - ./dynamic_conf.toml:/etc/traefik/dynamic_conf.toml
+      - ./traefik.toml:/etc/traefik/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
