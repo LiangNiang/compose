@@ -4,6 +4,7 @@ services:
     image: traefik
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./dynamic_conf.toml:/etc/traefik/dynamic_conf.toml
       - ./traefik.toml:/etc/traefik/traefik.toml

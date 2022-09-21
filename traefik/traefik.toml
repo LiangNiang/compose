@@ -7,11 +7,8 @@
     address = ":80"
   [entryPoints.websecure]
     address = ":443"
-  [entryPoints.streaming]
-    address = ":1704/udp"
 
 [api]
-  insecure = true
   dashboard = true
 
 [providers]

@@ -4,7 +4,7 @@ services:
     image: containous/whoami
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.devdoll.art`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.devdoll.art`) || (Host(`dashboard.devdoll.art`) && Path(`/whoami`))"
 networks:
   default:
     name: traefik_default
