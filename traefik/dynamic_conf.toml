@@ -1,5 +1,5 @@
 [http.routers.api]
-  rule = "Host(`dashboard.devdoll.art`)"
+  rule = "Host(`traefik.devdoll.art`)"
   service = "api@internal"
   middlewares = ["auth"]
 
