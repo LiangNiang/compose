@@ -6,6 +6,7 @@ services:
     restart: always
     environment:
       - WEBSOCKET_ENABLED=true
+      - ADMIN_TOKEN=xxxxxx
     volumes:
       - ./data:/data
     labels:
