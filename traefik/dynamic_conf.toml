@@ -11,9 +11,19 @@
   [http.routers.bt.tls]
     certResolver = "le"
 
+[http.routers.bt-not-secure]
+  rule = "Host(`bt.devdoll.art`)"
+  entrypoints = "web"
+  service = "bt"
+  middlewares = ["bt-redirect-web-secure"]
 
-[http.middlewares.auth.basicAuth]
-  users = ["liangniang:$apr1$eeYKtNnF$plWflIpO95tdE1chPdiy51"]
+
+[http.middlewares]
+  [http.middlewares.auth.basicAuth]
+    users = ["liangniang:$apr1$eeYKtNnF$plWflIpO95tdE1chPdiy51"]
+  [http.middlewares.bt-redirect-web-secure.redirectscheme]
+    scheme = "https"
+    permanent = true
 
 [http.services]
   [http.services.bt.loadBalancer]
