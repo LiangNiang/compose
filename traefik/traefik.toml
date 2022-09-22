@@ -27,3 +27,15 @@
 
   [certificatesResolvers.le.acme.httpChallenge]
     entryPoint = "web"
+
+[log]
+  filePath = "/log/traefik.log"
+  format = "json"
+
+[accessLog]
+  filePath = "/log/access.log"
+  format = "json"
+  [accessLog.fields]
+    defaultMode = "keep"
+    [accessLog.fields.headers]
+      defaultMode = "keep"

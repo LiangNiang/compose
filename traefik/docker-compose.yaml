@@ -2,6 +2,8 @@ version: '3'
 services:
   traefik:
     image: traefik
+    environment:
+      - TZ=Asia/Shanghai
     ports:
       - 80:80
       - 8080:8080
@@ -11,3 +13,4 @@ services:
       - ./traefik.toml:/etc/traefik/traefik.toml
       - ./acme.json:/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./log:/log
