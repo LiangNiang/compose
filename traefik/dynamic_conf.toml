@@ -15,13 +15,25 @@
   rule = "Host(`bt.devdoll.art`)"
   entrypoints = "web"
   service = "bt"
-  middlewares = ["bt-redirect-web-secure"]
+  middlewares = ["redirect-web-secure"]
+
+[http.routers.bitwarden-ui-not-secure]
+  rule = "Host(`bitwarden.devdoll.icu`)"
+  entrypoints = "web"
+  service = "bitwarden-ui@docker"
+  middlewares = ["redirect-web-secure"]
+
+[http.routers.bitwarden-websocket-not-secure]
+  rule = "Host(`bitwarden.devdoll.icu`) && Path(`/notifications/hub`)"
+  entrypoints = "web"
+  service = "bitwarden-websocket@docker"
+  middlewares = ["redirect-web-secure"]
 
 
 [http.middlewares]
   [http.middlewares.auth.basicAuth]
     users = ["liangniang:$apr1$eeYKtNnF$plWflIpO95tdE1chPdiy51"]
-  [http.middlewares.bt-redirect-web-secure.redirectscheme]
+  [http.middlewares.redirect-web-secure.redirectscheme]
     scheme = "https"
     permanent = true
 
