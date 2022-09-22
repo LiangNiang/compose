@@ -39,3 +39,6 @@
     defaultMode = "keep"
     [accessLog.fields.headers]
       defaultMode = "keep"
+
+[ping]
+  
