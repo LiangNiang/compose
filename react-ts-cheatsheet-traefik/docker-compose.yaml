@@ -1,0 +1,15 @@
+version: '3'
+services:
+  http:
+    image: hub.devdoll.icu/liangniang/react-ts-cheatsheet
+    container_name: react-ts-cheatsheet
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.react-ts-cheatsheet.rule=Host(`react-ts-cheatsheet.${DOMAIN_NAME}`)
+      - traefik.http.routers.react-ts-cheatsheet.service=react-ts-cheatsheet
+      - traefik.http.services.react-ts-cheatsheet.loadbalancer.server.port=80
+networks:
+  default:
+    name: traefik_default
+    external: true
