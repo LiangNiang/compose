@@ -1,0 +1,33 @@
+version: '3'
+services:
+  registry:
+    image: registry
+    container_name: registry-srv
+    restart: always
+    volumes:
+      - ./registry-data:/var/lib/registry
+      - ./registry-config/config.yml:/etc/docker/registry/config.yml
+  ui:
+    image: joxit/docker-registry-ui
+    container_name: registry-ui
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./read-write.htpasswd:/etc/nginx/auth/read-write.htpasswd:ro
+      - ./read-only.htpasswd:/etc/nginx/auth/read-only.htpasswd
+    environment:
+      - SINGLE_REGISTRY=false
+      - REGISTRY_TITLE=Liang Private Docker Hub
+      - NGINX_PROXY_PASS_URL=http://registry-srv:5000
+      - DELETE_IMAGES=true
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.hub.rule=Host(`hub.${DOMAIN_NAME}`)
+      - traefik.http.routers.hub.tls=true
+      - traefik.http.routers.hub.tls.certresolver=le
+      - traefik.http.routers.hub.service=hub
+      - traefik.http.services.hub.loadbalancer.server.port=80
+networks:
+  default:
+    name: traefik_default
+    external: true
