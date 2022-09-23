@@ -5,6 +5,12 @@
   [http.routers.api.tls]
     certResolver = "le"
 
+[http.routers.api-not-secure]
+  rule = "Host(`traefik.devdoll.icu`)"
+  entrypoints = "web"
+  service = "api@internal"
+  middlewares = ["redirect-web-secure"]
+
 [http.routers.bt]
   rule = "Host(`bt.devdoll.art`)"
   service = "bt"
