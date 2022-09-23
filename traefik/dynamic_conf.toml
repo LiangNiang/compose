@@ -11,6 +11,12 @@
   [http.routers.bt.tls]
     certResolver = "le"
 
+[http.routers.whoami-not-secure]
+  rule = "Host(`whoami.devdoll.icu`) || (Host(`dashboard.devdoll.icu`) && Path(`/whoami`))"
+  entrypoints = "web"
+  service = "whoami@docker"
+  middlewares = ["redirect-web-secure"]
+
 [http.routers.bt-not-secure]
   rule = "Host(`bt.devdoll.art`)"
   entrypoints = "web"
