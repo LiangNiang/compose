@@ -3,10 +3,11 @@ services:
   whoami:
     image: containous/whoami
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.devdoll.art`) || (Host(`dashboard.devdoll.art`) && Path(`/whoami`))"
-      - "traefik.http.routers.whoami.tls=true"
-      - "traefik.http.routers.whoami.tls.certresolver=le"
+      - traefik.enable=true
+      - traefik.http.routers.whoami.rule=Host(`whoami.devdoll.art`) || (Host(`dashboard.devdoll.art`) && Path(`/whoami`))
+      - traefik.http.routers.whoami.tls=true
+      - traefik.http.routers.whoami.tls.certresolver=le
+      - traefik.http.routers.whoami.service=whoami
 networks:
   default:
     name: traefik_default
