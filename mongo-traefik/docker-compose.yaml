@@ -1,0 +1,37 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=passwordpassword
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    environment:
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=passwordpassword
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD:=passwordpassword
+      - ME_CONFIG_MONGODB_URL=mongodb://root:passwordpassword@mongo:27017/
+    ports:
+      - 8081:8081
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mongo-express-not-secure.rule=Host(`mongo.${DOMAIN_NAME}`)
+      - traefik.http.routers.mongo-express-not-secure.entrypoints=web
+      - traefik.http.routers.mongo-express-not-secure.service=mongo-express
+      - traefik.http.routers.mongo-express-not-secure.middlewares=redirect-web-secure@file
+      - traefik.http.routers.mongo-express.rule=Host(`mongo.${DOMAIN_NAME}`)
+      - traefik.http.routers.mongo-express.tls=true
+      - traefik.http.routers.mongo-express.tls.certresolver=le
+      - traefik.http.routers.mongo-express.service=mongo-express
+      - traefik.http.services.mongo-express.loadbalancer.server.port=8081
+networks:
+  default:
+    name: traefik_default
+    external: true
